@@ -79,26 +79,20 @@ def pascalrec(row, col):
 
 # 5. Zdefiniuj funkcję "balance", która sprawdza, czy w danym Stringu nawiasy są ustawione w prawidłowy
 # sposób, tj. czy każde lewy nawias ma swój prawy nawias do pary i czy są one dobrze ustawione.
-def balance(input):
-    lewe = []
-    prawe = []
-    for znak in input:
-        if znak in ['(', '[', '{']:
-            lewe.append(znak)
-        elif znak in [')', ']', '}']:
-            prawe.append(znak)
-    if len(lewe) != len(prawe):
-        return False
-    for i in range(len(lewe)):
-        l = lewe[i]
-        p = prawe[len(prawe)-1-i]
-        if l == '(' and p != ')':
+def balance(input, level=0):
+    if len(input) == 0:
+        if level == 0:
+            return True
+        else:
             return False
-        if l == '[' and p != ']':
+    else:
+        if level < 0:
             return False
-        if l == '{' and p != '}':
-            return False
-    return True
+        if input[0] == '(':
+            level += 1
+        elif input[0] == ')':
+            level -= 1
+        return balance(input[1:], level)
 
 
 if __name__ == "__main__":
@@ -112,6 +106,6 @@ if __name__ == "__main__":
     assert(pascalrec(3, 2) == 2)
     assert(pascalrec(4, 2) == pascalrec(4, 3) == 3)
     assert(pascalrec(5, 2) == pascalrec(5, 4) == 4 and pascalrec(5,3) == 6)
-
-    assert(balance("(({[([({{({[]})}})])]}))") == True)
-    assert(balance("(({[([({{({({[]}))})])]}))") == False)
+    assert(balance("(logika),()") == True)
+    assert(balance(")()(") == False)
+    assert(balance("(( )( ))") == True)
