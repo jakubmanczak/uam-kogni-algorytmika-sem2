@@ -44,6 +44,14 @@ def tree_balanced(root):
         return False
     return True
 
+def tree_globally_locally_balanced(root):
+    if root == None:
+        return True
+    if root.left == None and root.right != None or root.left != None and root.right == None:
+        return False
+    if root.left != None and root.right != None:
+        return not tree_globally_locally_balanced(root.left) or not tree_globally_locally_balanced(root.right)
+
 if __name__ == "__main__":
     assert(is_value_in_tree(root, 1)    == True)
     assert(is_value_in_tree(root, 7)    == True)
@@ -57,3 +65,5 @@ if __name__ == "__main__":
     assert(tree_balanced(root.left) == False)
     assert(tree_balanced(root.left.left) == True)
     assert(tree_balanced(root.left.right) == True)
+
+    assert(tree_globally_locally_balanced(root) == False)
