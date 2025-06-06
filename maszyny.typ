@@ -148,22 +148,23 @@ $ Gamma = { 0, 1, #sym.nothing } #h(1cm) Q = { q_K, q_P, q_1 }, "gdzie" cases(
   $(q_1, 1) -> (q_K, 0, -)$ \
 ]
 
+#pagebreak()
 = Maszyna Turinga: do dodania dwóch liczb w systemie binarnym
-$ Gamma = { 0, 1, X, #sym.nothing}, "gdzie" cases(
-  0 & ": wartości binarna 0",
-  1 & ": wartości binarna 1",
-  #sym.nothing & ": wartość pusta",
-  X & ": rozdzielenie dwóch liczb"
+$ Gamma = { 0, 1, X, #sym.nothing}, & "gdzie" cases(
+  0 & ": wartość binarna „0”",
+  1 & ": wartość binarna „1”",
+  #sym.nothing & ": wartość pusta; nicość",
+  X & ": znak rozdzielający dwie liczby"
 ) \
-  Q = { q_K, q_P, q_(1..5) }, "gdzie" cases(
-    q_K & ": stan końcowy",
-    q_P & ": stan początkowy",
-    q_1 & ": --",
-    q_2 & ": --",
-    q_3 & ": --",
-    q_4 & ": --",
-    q_5 & ": --",
-  )
+Q = { q_K, q_P, q_(1..5) }, & "gdzie" cases(
+  q_K & ": stan końcowy; koniec pracy",
+  q_P & ": stan początkowy; przejście na koniec drugiej liczby",
+  q_1 & ": stan dekrementacji drugiej liczby",
+  q_2 & ": stan przechodzenia do pierwszej liczby",
+  q_3 & ": stan inkrementacji pierwszej liczby",
+  q_4 & ": stan przechodzenia do drugiej liczby",
+  q_5 & ": stan decyzyjny - kolejna iteracja v. koniec pracy",
+)
 $
 
 #align(center)[
@@ -179,7 +180,7 @@ $
   $(q_P, 1) -> (q_P, 1, R)$ \
   $(q_P, 0) -> (q_P, 0, R)$ \
   $(q_P, X) -> (q_P, X, R)$ \
-  $(q_P, #sym.nothing) -> (q_P, #sym.nothing, L)$ \
+  $(q_P, #sym.nothing) -> (q_1, #sym.nothing, L)$ \
   $(q_1, 1) -> (q_2, 0, L)$ \
   $(q_1, 0) -> (q_1, 1, L)$ \
   $(q_2, 1) -> (q_2, 1, L)$ \
